@@ -1,52 +1,58 @@
 pipeline {
     agent any
 
+    environment {
+        GIT_URL = "https://github.com/kapilrahtor/Jenkins_pipeline.git"
+        BRANCH_NAME = "main"
+        APP_NAME = "DemoApp"
+    }
+
     stages {
 
-        stage('Checkout') {
+        stage('Clone Repository') {
             steps {
-                echo "Cloning the repository..."
-                git url: 'https://github.com/kapilrahtor/Jenkins_pipeline.git', branch: 'main'
+                echo "Cloning repository..."
+                git branch: "${BRANCH_NAME}",
+                    url: "${GIT_URL}"
             }
         }
 
         stage('Build') {
             steps {
-                echo "Building the application..."
-                bat 'echo Building app...'
-		bat 'Build.bat'
-                bat 'timeout /t 2 >nul'
-                bat 'echo Build completed!'
+                echo "Running Build Script..."
+                bat "Build.bat"
             }
         }
 
-        stage('Unit Test') {
+        stage('Test') {
             steps {
-                echo "Running unit tests..."
-                bat 'echo Running tests...'
-		bat 'Unit.bat'
-                bat 'timeout /t 2 >nul'
-                bat 'echo All tests passed!'
+                echo "Running Test Script..."
+                bat "Test.bat"
             }
         }
 
         stage('Deploy') {
+            when {
+                expression {
+                    currentBuild.currentResult == 'SUCCESS'
+                }
+            }
             steps {
-                echo "Deploying application..."
-                bat 'echo Deploying app...'
-		bat 'Deploy.bat'
-                bat 'timeout /t 2 >nul'
-                bat 'echo Deployment successful!'
+                echo "Running Deployment Script..."
+                bat "Deploy.bat"
             }
         }
     }
 
     post {
         success {
-            echo "Pipeline finished successfully!"
+            echo "CI/CD Pipeline executed successfully 🎉"
         }
         failure {
-            echo "Pipeline failed!"
+            echo "Pipeline failed ❌"
+        }
+        always {
+            echo "Execution completed."
         }
     }
 }
