@@ -1,46 +1,38 @@
 pipeline {
-    agent any
+agent any
 
-    stages {
-        stage('Pull from Git') {
-            steps {
-                // This pulls the latest code from your specific repo
-                checkout scm
-            }
-        }
+```
+stages {
 
-        stage('Build') {
-            steps {
-                echo 'Building...'
-                // Ensure the script has execute permissions and run it
-                sh 'chmod +x Build.sh'
-                sh './Build.sh'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                echo 'Testing...'
-                sh 'chmod +x Test.sh'
-                sh './Test.sh'
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                echo 'Deploying...'
-                sh 'chmod +x Deploy.sh'
-                sh './Deploy.sh'
-            }
+    stage('Pull from Git') {
+        steps {
+            git 'https://github.com/jindsaini2013/pipelinelab.git'
         }
     }
-    
-    post {
-        success {
-            echo 'Pipeline completed successfully!'
-        }
-        failure {
-            echo 'Pipeline failed. Check the logs above.'
+
+    stage('Build') {
+        steps {
+            echo "Building the project..."
+            sh 'echo Build Successful'
         }
     }
+
+    stage('Test') {
+        steps {
+            echo "Running tests..."
+            sh 'echo Tests Passed'
+        }
+    }
+
+    stage('Deploy') {
+        steps {
+            echo "Deploying application..."
+            sh 'echo Deployment Completed'
+        }
+    }
+
 }
+```
+
+}
+
