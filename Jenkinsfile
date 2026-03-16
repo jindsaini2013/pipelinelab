@@ -3,30 +3,21 @@ agent any
 
 stages {
 
-    stage('Pull from Git') {
+    stage('Job1 - Create JOB_1 directory') {
         steps {
-		git branch: 'main', url: 'https://github.com/jindsaini2013/pipelinelab.git'
+            sh 'mkdir -p JOB_1'
         }
     }
 
-    stage('Build') {
+    stage('Job2 - Create JOB_2 inside JOB_1') {
         steps {
-            echo "Building the project..."
-            sh 'echo Build Successful'
+            sh 'mkdir -p JOB_1/JOB_2'
         }
     }
 
-    stage('Test') {
+    stage('Job3 - Create JOB_3 inside JOB_2') {
         steps {
-            echo "Running tests..."
-            sh 'echo Tests Passed'
-        }
-    }
-
-    stage('Deploy') {
-        steps {
-            echo "Deploying application..."
-            sh 'echo Deployment Completed'
+            sh 'mkdir -p JOB_1/JOB_2/JOB_3'
         }
     }
 
