@@ -1,7 +1,6 @@
 pipeline {
 agent any
 
-```
 stages {
 
     stage('Pull from Git') {
@@ -32,7 +31,6 @@ stages {
     }
 
 }
-```
 
 }
 
