@@ -13,24 +13,24 @@ pipeline {
             steps {
                 echo 'Building...'
                 // Ensure the script has execute permissions and run it
-                sh 'chmod +x build.sh'
-                sh './build.sh'
+                sh 'chmod +x Build.sh'
+                sh './Build.sh'
             }
         }
 
         stage('Test') {
             steps {
                 echo 'Testing...'
-                sh 'chmod +x test.sh'
-                sh './test.sh'
+                sh 'chmod +x Test.sh'
+                sh './Test.sh'
             }
         }
 
         stage('Deploy') {
             steps {
                 echo 'Deploying...'
-                sh 'chmod +x deploy.sh'
-                sh './deploy.sh'
+                sh 'chmod +x Deploy.sh'
+                sh './Deploy.sh'
             }
         }
     }
