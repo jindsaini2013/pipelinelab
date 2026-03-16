@@ -5,7 +5,7 @@ stages {
 
     stage('Pull from Git') {
         steps {
-            git 'https://github.com/jindsaini2013/pipelinelab.git'
+		git branch: 'main', url: 'https://github.com/jindsaini2013/pipelinelab.git'
         }
     }
 
